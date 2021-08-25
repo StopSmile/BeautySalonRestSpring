@@ -34,7 +34,7 @@ public class PersonDto {
     @NotBlank(message = "'repeatPassword' shouldn't be empty", groups = OnCreate.class)
     private String repeatPassword;
 
-    @Email(message = "'email' wrong email format", groups = OnCreate.class)
+    @Email(message = "'email' wrong email format")
     @NotBlank(message = "'email' shouldn't be empty", groups = OnCreate.class)
     private String email;
 
