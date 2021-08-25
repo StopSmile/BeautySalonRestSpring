@@ -1,0 +1,33 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/SpringREST
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create-drop
+
+
+
+
+#spring.datasource.url=jdbc:postgresql://localhost:5432/SpringRest
+#spring.datasource.username=posgres
+#spring.datasource.password=admin
+
+#spring.datasource.driver-class-name=org.postgresql.Driver
+#spring.jpa.database=postgresql
+#spring.jpa.database-platform=org.hibernate.dialect.PostgreSQL10Dialect
+
+
