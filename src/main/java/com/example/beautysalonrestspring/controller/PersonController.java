@@ -1,5 +1,6 @@
 package com.example.beautysalonrestspring.controller;
 
+import com.example.beautysalonrestspring.api.PersonApi;
 import com.example.beautysalonrestspring.controller.Assembler.PersonAssembler;
 import com.example.beautysalonrestspring.controller.model.PersonModel;
 import com.example.beautysalonrestspring.dto.PersonDto;
@@ -22,30 +23,18 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@Api(tags = "Person management API")
-@RequestMapping("/api/v1")
-public class PersonController {
+public class PersonController implements PersonApi {
 
     private final PersonService personService;
     private final PersonAssembler personAssembler;
 
 
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "login", paramType = "path", required = true, value = "User login"),
-    })
-    @ApiOperation("Get person")
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/persons/{login}")
-    public PersonModel getPerson(@PathVariable String login) {
+    public PersonModel getPerson(String login) {
         PersonDto personDto = personService.getPerson(login);
         return personAssembler.toModel(personDto);
     }
 
-
-    @ApiOperation("Get all persons")
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/persons")
-    public List<PersonModel> getPersonDtoList() {
+    public List<PersonModel> getAllPersons() {
         List<PersonDto> personDtoList = personService.getAllPerson();
         List<PersonModel> personModelList = new ArrayList<>();
         for (PersonDto personDto : personDtoList) {
@@ -54,34 +43,17 @@ public class PersonController {
         return personModelList;
     }
 
-    @ApiOperation("Create person")
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value = "/persons")
-    public PersonModel createPerson(@RequestBody @Validated(OnCreate.class) PersonDto personDto) {
+    public PersonModel createPerson(PersonDto personDto) {
         PersonDto OutPersonDto = personService.createPerson(personDto);
         return personAssembler.toModel(OutPersonDto);
     }
 
-
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "login", paramType = "path", required = true, value = "User login"),
-    })
-    @ApiOperation("Update person")
-    @ResponseStatus(HttpStatus.OK)
-    @PatchMapping(value = "persons/{login}")
-    public PersonModel updatePerson(@PathVariable String login, @RequestBody @Validated(OnUpdate.class) PersonDto personDto) {
+    public PersonModel updatePerson(String login, PersonDto personDto) {
         PersonDto OutPersonDto = personService.updatePerson(login, personDto);
         return personAssembler.toModel(OutPersonDto);
     }
 
-
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "login", paramType = "path", required = true, value = "User login"),
-    })
-    @ApiOperation("Delete person")
-    @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping(value = "/persons/{login}")
-    public ResponseEntity<Void> deletePerson(@PathVariable String login) {
+    public ResponseEntity<Void> deletePerson(String login) {
         personService.deletePerson(login);
         return ResponseEntity.noContent().build();
     }

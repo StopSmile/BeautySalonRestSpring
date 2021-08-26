@@ -32,7 +32,7 @@ public class PersonAssembler extends RepresentationModelAssemblerSupport<PersonD
         Link create = linkTo(methodOn(PersonController.class).createPerson(entity)).withRel(CREATE_USER);
         Link update = linkTo(methodOn(PersonController.class).updatePerson(entity.getLogin(),entity)).withRel(UPDATE_USER);
         Link delete = linkTo(methodOn(PersonController.class).deletePerson(entity.getLogin())).withRel(DELETE_USER);
-        Link getAllUsers = linkTo(methodOn(PersonController.class).getPersonDtoList()).withRel(GET_ALL_USERS);
+        Link getAllUsers = linkTo(methodOn(PersonController.class).getAllPersons()).withRel(GET_ALL_USERS);
 
         personModel.add(get,create,update,delete,getAllUsers);
 
